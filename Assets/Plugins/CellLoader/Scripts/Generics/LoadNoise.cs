@@ -1,5 +1,8 @@
-public enum LoadNoise
+namespace Arcturus.MapLoader
 {
-    Loud, // Fires cell loading event calls.
-    Silent // Ignores cell loading event calls. 
+    public enum LoadNoise
+    {
+        Loud, // Fires cell loading event calls.
+        Silent // Ignores cell loading event calls. 
+    }
 }

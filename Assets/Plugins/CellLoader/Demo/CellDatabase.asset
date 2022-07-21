@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f31e12abf78e145932301d7a8ce2ed, type: 3}
+  m_Name: CellDatabase
+  m_EditorClassIdentifier: 
+  cells:
+  - id: {fileID: 11400000, guid: a43e98207df06fa4aa23fa7f6db19e74, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/Main.unity
+    toleratedCells: []
+  - id: {fileID: 11400000, guid: 5f4559d1039dbcc41ac16e00d277b937, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: d3dda2b9dd3199e4290508afc320fe70, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene1.unity
+    toleratedCells: []
+  - id: {fileID: 11400000, guid: d1c4696a427a73742bcbbf61eae2df1f, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: 0c46b1ed63b49754e8af1e74adb8d6f8, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene2.unity
+    toleratedCells:
+    - {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+  - id: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: 722db93554940c848a821a145600d821, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene3.unity
+    toleratedCells:
+    - {fileID: 11400000, guid: d1c4696a427a73742bcbbf61eae2df1f, type: 2}

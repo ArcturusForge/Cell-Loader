@@ -10,13 +10,13 @@ namespace Arcturus.MapLoader
     }
 
     [Serializable]
-    public class OnRelocatePlayer : UnityEvent
+    public class OnLoadEnd : UnityEvent
     {
 
     }
 
     [Serializable]
-    public class OnLoadEnd : UnityEvent
+    public class OnLoadProgress : UnityEvent<float>
     {
 
     }

@@ -1,15 +1,20 @@
+using DevLocker.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CellDatabase", menuName = "New CellDatabase")]
-public class CellDatabase : ScriptableObject
+namespace Arcturus.MapLoader.Internal
 {
-    public List<Cell> cells;
-}
+    [CreateAssetMenu(fileName = "CellDatabase", menuName = "New CellDatabase")]
+    public class CellDatabase : ScriptableObject
+    {
+        public List<Cell> cells;
+    }
 
-[System.Serializable]
-public class Cell
-{
-    public string id;
-    public GameObject cellPrefab;
+    [System.Serializable]
+    public class Cell
+    {
+        public Cell_ID id;
+        public SceneReference scene;
+        public List<Cell_ID> toleratedCells;
+    }
 }
