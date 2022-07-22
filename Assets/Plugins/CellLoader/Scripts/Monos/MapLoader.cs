@@ -15,9 +15,12 @@ namespace Arcturus.MapLoader
         public CellDatabase cellDatabase;
 
         [Header("Transition Events")]
-        public OnLoadStart OnLoadStart;
-        public OnLoadEnd OnLoadEnd;
-        public OnLoadProgress OnLoadProgress;
+        [SerializeField] private OnLoadStart OnLoadStart;
+        [SerializeField] private OnLoadEnd OnLoadEnd;
+        [SerializeField] private OnLoadProgress OnLoadProgress;
+
+        public static int ArtificialLoadDelay { get { return I.loadDelay; } set { I.loadDelay = value; } }
+        private int loadDelay = 100;
 
         public static Scene NativeScene => I._nativeScene;
         private Scene _nativeScene;
@@ -31,6 +34,11 @@ namespace Arcturus.MapLoader
 
         // Internal Events
         public static Action<string, CellCoordinator> OnCellLoaded;
+
+        // Codebased Events
+        public static Action OnLoadingStart;
+        public static Action OnLoadingEnd;
+        public static Action<float> OnLoadingProgress;
 
         private void Awake()
         {
@@ -58,6 +66,27 @@ namespace Arcturus.MapLoader
         }
 
         #region Helper Funcs
+        private void SendLoadEvents(LoadEventType eventType, float val = 0f)
+        {
+            switch (eventType)
+            {
+                case LoadEventType.Start:
+                    OnLoadStart?.Invoke();
+                    OnLoadingStart?.Invoke();
+                    break;
+                case LoadEventType.End:
+                    OnLoadEnd?.Invoke();
+                    OnLoadingEnd?.Invoke();
+                    break;
+                case LoadEventType.Progress:
+                    OnLoadProgress?.Invoke(val);
+                    OnLoadingProgress?.Invoke(val);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void RegisterCell(string sceneName, CellCoordinator coordinator)
         {
             if (!loadedCells.Exists(X => X.scene.SceneName == sceneName))
@@ -96,7 +125,7 @@ namespace Arcturus.MapLoader
             }
 
             // TODO: Review implementation..
-            I.OnLoadEnd?.Invoke();
+            I.SendLoadEvents(LoadEventType.End);
         }
 
         /// <summary>
@@ -117,7 +146,7 @@ namespace Arcturus.MapLoader
         /// Reduces its load influence by 1 if unable to unload.
         /// </summary>
         /// <param name="cellId"></param>
-        public static async void UnloadCell(string cellId)
+        public static void UnloadCell(string cellId)
         {
             var cell = I.loadedCells.Find(X => X.cellID.name == cellId);
             cell.loadInfluence--;
@@ -136,9 +165,6 @@ namespace Arcturus.MapLoader
                         }
                     }
                 }
-
-                // Artificial delay of 2 second.
-                await Task.Delay(200);
 
                 // Unload scene.
                 SceneManager.UnloadSceneAsync(cell.scene.ScenePath);
@@ -165,9 +191,13 @@ namespace Arcturus.MapLoader
             {
                 Debug.LogWarning($"Load Ignored: {cell.id} is already loaded");
 
-                // Temporarily unsubscribe from 
+                // Temporarily unsubscribe from cell load event. 
                 OnCellLoaded -= I.RegisterCell;
+
+                // Simulate a successful scene load.
                 OnCellLoaded?.Invoke(cell.scene.SceneName, I.loadedCells.Find(X => X.cellID == cell.id).coordinator);
+
+                // Resubscribe to cell load event.
                 OnCellLoaded += I.RegisterCell;
 
                 I.OnLoadEnd?.Invoke();
@@ -181,7 +211,7 @@ namespace Arcturus.MapLoader
                 sceneAsync.allowSceneActivation = true;
             else
             {
-                I.OnLoadStart?.Invoke();
+                I.SendLoadEvents(LoadEventType.Start);
                 sceneAsync.allowSceneActivation = false;
             }
 
@@ -191,10 +221,10 @@ namespace Arcturus.MapLoader
                 do
                 {
                     // Artificial delay of 1 second so the load screen doesn't disappear too fast.
-                    await Task.Delay(100);
+                    await Task.Delay(I.loadDelay);
 
                     // For loading bars..
-                    I.OnLoadProgress?.Invoke(sceneAsync.progress);
+                    I.SendLoadEvents(LoadEventType.Progress, sceneAsync.progress);
 
                 } while (sceneAsync.progress < 0.9f);
 
@@ -202,4 +232,9 @@ namespace Arcturus.MapLoader
             }
         }
     }
+}
+
+namespace Arcturus.MapLoader.Internal
+{
+    public enum LoadEventType { Start, End, Progress }
 }
