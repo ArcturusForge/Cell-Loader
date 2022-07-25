@@ -24,18 +24,18 @@ MonoBehaviour:
       m_SceneAsset: {fileID: 102900000, guid: d3dda2b9dd3199e4290508afc320fe70, type: 3}
       m_IsDirty: 0
       m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene1.unity
-    toleratedCells: []
+    toleratedCells:
+    - {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
   - id: {fileID: 11400000, guid: d1c4696a427a73742bcbbf61eae2df1f, type: 2}
     scene:
       m_SceneAsset: {fileID: 102900000, guid: 0c46b1ed63b49754e8af1e74adb8d6f8, type: 3}
       m_IsDirty: 0
       m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene2.unity
-    toleratedCells:
-    - {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+    toleratedCells: []
   - id: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
     scene:
       m_SceneAsset: {fileID: 102900000, guid: 722db93554940c848a821a145600d821, type: 3}
       m_IsDirty: 0
       m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene3.unity
     toleratedCells:
-    - {fileID: 11400000, guid: d1c4696a427a73742bcbbf61eae2df1f, type: 2}
+    - {fileID: 11400000, guid: 5f4559d1039dbcc41ac16e00d277b937, type: 2}
