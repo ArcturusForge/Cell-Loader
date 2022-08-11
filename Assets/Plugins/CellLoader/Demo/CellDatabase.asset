@@ -39,3 +39,9 @@ MonoBehaviour:
       m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene3.unity
     toleratedCells:
     - {fileID: 11400000, guid: 5f4559d1039dbcc41ac16e00d277b937, type: 2}
+  - id: {fileID: 11400000, guid: 28c9b7148fda63f49a78b40f180b0318, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: 4341fadb44736ea42bfed6feebc8c8a6, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene4.unity
+    toleratedCells: []

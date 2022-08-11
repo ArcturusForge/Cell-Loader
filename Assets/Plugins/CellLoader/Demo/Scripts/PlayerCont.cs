@@ -97,6 +97,7 @@ public class PlayerCont : MonoBehaviour
         {
             var pos = coordinator.GetGateway(targetGate);
             transform.position = pos.transform.position;
+            targetGate = null;
         }
     }
 

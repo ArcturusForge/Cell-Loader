@@ -19,6 +19,10 @@ namespace Arcturus.MapLoader
         [SerializeField] private OnLoadEnd OnLoadEnd;
         [SerializeField] private OnLoadProgress OnLoadProgress;
 
+        // Public Accessors
+        public static CellCoordinator LatestCoordinator => I.latestCoordinator;
+        private CellCoordinator latestCoordinator;
+
         public static int ArtificialLoadDelay { get { return I.loadDelay; } set { I.loadDelay = value; } }
         private int loadDelay = 100;
 
@@ -56,13 +60,13 @@ namespace Arcturus.MapLoader
             loadedCells = new List<CellRef>();
 
             // Register internal events.
-            OnCellLoaded += I.RegisterCell;
+            OnCellLoaded += RegisterCell;
         }
 
         private void OnDestroy()
         {
             // Unregister internal events.
-            OnCellLoaded -= I.RegisterCell;
+            OnCellLoaded -= RegisterCell;
         }
 
         #region Helper Funcs
@@ -125,6 +129,7 @@ namespace Arcturus.MapLoader
             }
 
             // TODO: Review implementation..
+            I.latestCoordinator = coordinator;
             I.SendLoadEvents(LoadEventType.End);
         }
 

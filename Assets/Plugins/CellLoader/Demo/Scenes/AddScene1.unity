@@ -278,6 +278,7 @@ MonoBehaviour:
   cell: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
   gateway: {fileID: 0}
   noise: 1
+  usePopup: 0
 --- !u!1 &172017267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1668,8 @@ MonoBehaviour:
   gateways:
   - id: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
     spawnPoint: {fileID: 500192126}
+  - id: {fileID: 11400000, guid: 30e53989f6e7cc341bdb995e425ace31, type: 2}
+    spawnPoint: {fileID: 500192126}
 --- !u!1 &1621993820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,6 +2070,10 @@ PrefabInstance:
       propertyPath: noise
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: gateway
+      value: 
+      objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
     - target: {fileID: 7839218103958269952, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
       propertyPath: m_IsActive
       value: 1
