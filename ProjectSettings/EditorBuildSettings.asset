@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Plugins/CellLoader/Demo/Scenes/AddScene4.unity
     guid: 4341fadb44736ea42bfed6feebc8c8a6
+  - enabled: 1
+    path: Assets/Plugins/CellLoader/Demo/Scenes/AddScene5.unity
+    guid: 584e357418a05f046bfe4a679877b93c
   m_configObjects: {}

@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+namespace Arcturus.MapLoader.Internal
+{
+    public enum LoadEventType { Start, End, Progress }
+}
+
 namespace Arcturus.MapLoader
 {
     public class MapLoader : MonoBehaviour
@@ -36,6 +41,9 @@ namespace Arcturus.MapLoader
         // Unloading cells only decrease the counter untill it has a counter of zero.
         private List<CellRef> loadedCells;
 
+        // Load Event Blocker
+        private static bool allowRegisterEvents = true;
+
         // Internal Events
         public static Action<string, CellCoordinator> OnCellLoaded;
 
@@ -43,6 +51,7 @@ namespace Arcturus.MapLoader
         public static Action OnLoadingStart;
         public static Action OnLoadingEnd;
         public static Action<float> OnLoadingProgress;
+        public static Action<List<Cell_ID>> OnLoadedCellsChanged;
 
         private void Awake()
         {
@@ -103,19 +112,17 @@ namespace Arcturus.MapLoader
                     if (matchingCell.toleratedCells.Contains(loadedCells[i].cellID))
                     {
                         // Tolerated cell.
-                        var currentCell = loadedCells[i];
-                        currentCell.loadInfluence++;
+                        loadedCells[i].loadInfluence++;
                     }
                     else
                     {
                         // Untolerated cell.
                         var currentCell = loadedCells[i];
-                        currentCell.loadInfluence--;
+                        currentCell.loadInfluence -= 2;
 
                         if (currentCell.loadInfluence <= 0)
                         {
                             // unload it.
-                            Debug.Log($"Unloading a cell: {currentCell.cellID}");
                             UnloadCell(currentCell.cellID.name);
                         }
                     }
@@ -126,17 +133,23 @@ namespace Arcturus.MapLoader
 
                 // Add newly loaded cell.
                 loadedCells.Add(new CellRef(matchingCell.id, coordinator, matchingCell.scene, 1));
+
+                // Sends event with list of loaded cells.
+                BroadcastLoadedCells();
             }
 
             // TODO: Review implementation..
-            I.latestCoordinator = coordinator;
-            I.SendLoadEvents(LoadEventType.End);
+            if (allowRegisterEvents)
+            {
+                I.latestCoordinator = coordinator;
+                I.SendLoadEvents(LoadEventType.End);
+            }
         }
 
         /// <summary>
         /// Small follow up method that ensures any zero influence cells are unloaded.
         /// </summary>
-        private void CleanScenes()
+        private static void CleanScenes()
         {
             for (int c = 0; c < I.loadedCells.Count; c++)
             {
@@ -144,16 +157,30 @@ namespace Arcturus.MapLoader
                     UnloadCell(I.loadedCells[c].cellID.name);
             }
         }
+
+        public static void BroadcastLoadedCells()
+        {
+            var loadedList = new List<Cell_ID>();
+
+            //Debug.Log("Cell list:");
+            foreach (var cell in I.loadedCells)
+            {
+                loadedList.Add(cell.cellID);
+                //Debug.Log($"Cell: {cell.cellID}");
+            }
+
+            OnLoadedCellsChanged?.Invoke(loadedList);
+        }
         #endregion
 
         /// <summary>
         /// Will attempt to unload a cell.<br/>
         /// Reduces its load influence by 1 if unable to unload.
         /// </summary>
-        /// <param name="cellId"></param>
-        public static void UnloadCell(string cellId)
+        /// <param name="cellID"></param>
+        public static void UnloadCell(string cellID)
         {
-            var cell = I.loadedCells.Find(X => X.cellID.name == cellId);
+            var cell = I.loadedCells.Find(X => X.cellID.name == cellID);
             cell.loadInfluence--;
 
             if (cell.loadInfluence <= 0)
@@ -172,15 +199,28 @@ namespace Arcturus.MapLoader
                 }
 
                 // Unload scene.
+                Debug.Log($"Unloading a cell: {cellID}");
                 SceneManager.UnloadSceneAsync(cell.scene.ScenePath);
             }
         }
 
+        /// <summary>
+        /// Attempts to load a cell.<br/>
+        /// LoadNoise determines load cell events (Loud = Use events || Silent = Don't use events).
+        /// </summary>
+        /// <param name="cell_ID"></param>
+        /// <param name="loadNoise"></param>
         public static void LoadCell(Cell_ID cell_ID, LoadNoise loadNoise = LoadNoise.Loud)
         {
             LoadCell(cell_ID.name, loadNoise);
         }
 
+        /// <summary>
+        /// Attempts to load a cell.<br/>
+        /// LoadNoise determines load cell events (Loud = Use events || Silent = Don't use events).
+        /// </summary>
+        /// <param name="cellId"></param>
+        /// <param name="loadNoise"></param>
         public static async void LoadCell(string cellId, LoadNoise loadNoise = LoadNoise.Loud)
         {
             if (!I.cells.ContainsKey(cellId))
@@ -206,6 +246,7 @@ namespace Arcturus.MapLoader
                 OnCellLoaded += I.RegisterCell;
 
                 I.OnLoadEnd?.Invoke();
+                BroadcastLoadedCells();
                 return;
             }
 
@@ -236,10 +277,42 @@ namespace Arcturus.MapLoader
                 sceneAsync.allowSceneActivation = true;
             }
         }
-    }
-}
 
-namespace Arcturus.MapLoader.Internal
-{
-    public enum LoadEventType { Start, End, Progress }
+        /// <summary>
+        /// Attempts to load the main cell alongside the additional cells that are loaded silently.<br/>
+        /// LoadNoise only affects the main cell loading routine.
+        /// </summary>
+        /// <param name="mainCell"></param>
+        /// <param name="additionalCells"></param>
+        /// <param name="loadNoise"></param>
+        public static void LoadMultipleCells(Cell_ID mainCell, List<Cell_ID> additionalCells, LoadNoise loadNoise = LoadNoise.Loud)
+        {
+            var ids = new List<string>();
+            foreach (var cell in additionalCells)
+                ids.Add(cell.name);
+
+            LoadMultipleCells(mainCell.name, ids, loadNoise);
+        }
+
+        /// <summary>
+        /// Attempts to load the main cell alongside the additional cells that are loaded silently.<br/>
+        /// LoadNoise only affects the main cell loading routine.
+        /// </summary>
+        /// <param name="mainCellID"></param>
+        /// <param name="additionalCellIDs"></param>
+        /// <param name="loadNoise"></param>
+        public static void LoadMultipleCells(string mainCellID, List<string> additionalCellIDs, LoadNoise loadNoise = LoadNoise.Loud)
+        {
+            LoadCell(mainCellID, loadNoise);
+
+            allowRegisterEvents = false;
+            foreach (var cellID in additionalCellIDs)
+            {
+                var cell = I.cells[cellID];
+                var sceneAsync = SceneManager.LoadSceneAsync(cell.scene.ToString(), LoadSceneMode.Additive);
+                sceneAsync.allowSceneActivation = true;
+            }
+            allowRegisterEvents = true;
+        }
+    }
 }

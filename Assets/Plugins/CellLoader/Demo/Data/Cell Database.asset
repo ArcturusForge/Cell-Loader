@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0f31e12abf78e145932301d7a8ce2ed, type: 3}
-  m_Name: CellDatabase
+  m_Name: Cell Database
   m_EditorClassIdentifier: 
   cells:
   - id: {fileID: 11400000, guid: a43e98207df06fa4aa23fa7f6db19e74, type: 2}
@@ -45,3 +45,10 @@ MonoBehaviour:
       m_IsDirty: 0
       m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene4.unity
     toleratedCells: []
+  - id: {fileID: 11400000, guid: 5c53c43293c2e6a41a9aea49d4b5b070, type: 2}
+    scene:
+      m_SceneAsset: {fileID: 102900000, guid: 584e357418a05f046bfe4a679877b93c, type: 3}
+      m_IsDirty: 0
+      m_ScenePath: Assets/Plugins/CellLoader/Demo/Scenes/AddScene5.unity
+    toleratedCells:
+    - {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}

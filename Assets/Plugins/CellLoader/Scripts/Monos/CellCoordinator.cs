@@ -14,6 +14,11 @@ namespace Arcturus.MapLoader
             MapLoader.OnCellLoaded?.Invoke(Path.GetFileNameWithoutExtension(gameObject.scene.path), this);
         }
 
+        private void Start()
+        {
+            MapLoader.BroadcastLoadedCells();
+        }
+
         // TODO:
         public GameObject GetGateway(string gatewayID)
         {

@@ -2,6 +2,7 @@ using DevLocker.Utils;
 
 namespace Arcturus.MapLoader.Internal
 {
+    [System.Serializable]
     public class CellRef
     {
         public Cell_ID cellID;

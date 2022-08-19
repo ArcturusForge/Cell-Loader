@@ -33,12 +33,8 @@ public class PlayerCont : MonoBehaviour
         MapLoader.OnCellLoaded -= OnCellLoaded;
     }
 
-    public static Transform Body;
-
     private void Update()
     {
-        Body = transform;
-
         if (Input.GetKeyDown(interactKey) && interactable != null)
         {
             if (interactable.PlayerInteract(gameObject, out object data))
@@ -56,6 +52,7 @@ public class PlayerCont : MonoBehaviour
                 Debug.LogWarning("Unable to interact for some reason.");
         }
 
+        // Movement stuff below
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
         var direction = new Vector3(horizontal, 0, vertical).normalized;
