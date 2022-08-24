@@ -389,6 +389,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 30e53989f6e7cc341bdb995e425ace31, type: 2}
     - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: myGatewayID
+      value: 
+      objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: targetCellID
+      value: 
+      objectReference: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: targetGatewayID
+      value: 
+      objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: incomingTeleportPoint
+      value: 
+      objectReference: {fileID: 276034390}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
       propertyPath: additionalCells.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -718,9 +734,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backupSpawn: {fileID: 276034390}
-  gateways:
-  - id: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
-    spawnPoint: {fileID: 276034390}
 --- !u!4 &1785561020
 Transform:
   m_ObjectHideFlags: 0

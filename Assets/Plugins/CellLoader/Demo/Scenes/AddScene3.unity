@@ -666,10 +666,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212b410b03fd65448260acdb2226dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 11400000, guid: 5f4559d1039dbcc41ac16e00d277b937, type: 2}
+  loadNoise: 1
+  myGatewayID: {fileID: 0}
+  incomingTeleportPoint: {fileID: 0}
+  targetCellID: {fileID: 11400000, guid: 5f4559d1039dbcc41ac16e00d277b937, type: 2}
+  targetGatewayID: {fileID: 0}
   additionalCells: []
-  gateway: {fileID: 0}
-  noise: 1
 --- !u!65 &505917213
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1094,10 +1096,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212b410b03fd65448260acdb2226dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 11400000, guid: 5c53c43293c2e6a41a9aea49d4b5b070, type: 2}
+  loadNoise: 1
+  myGatewayID: {fileID: 0}
+  incomingTeleportPoint: {fileID: 0}
+  targetCellID: {fileID: 11400000, guid: 5c53c43293c2e6a41a9aea49d4b5b070, type: 2}
+  targetGatewayID: {fileID: 0}
   additionalCells: []
-  gateway: {fileID: 0}
-  noise: 1
 --- !u!65 &1138203442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1264,9 +1268,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backupSpawn: {fileID: 0}
-  gateways:
-  - id: {fileID: 11400000, guid: 30e53989f6e7cc341bdb995e425ace31, type: 2}
-    spawnPoint: {fileID: 1584398343}
 --- !u!1 &1370368471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,7 +1296,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.2904591, z: -0, w: 0.9568874}
   m_LocalPosition: {x: -4.9604325, y: -1.232935, z: 2.720436}
   m_LocalScale: {x: 0.77537, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1584398344}
   m_Father: {fileID: 2110348706}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -33.771, z: 0}
@@ -1311,10 +1313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212b410b03fd65448260acdb2226dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 11400000, guid: 28c9b7148fda63f49a78b40f180b0318, type: 2}
+  loadNoise: 0
+  myGatewayID: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+  incomingTeleportPoint: {fileID: 1584398343}
+  targetCellID: {fileID: 11400000, guid: 28c9b7148fda63f49a78b40f180b0318, type: 2}
+  targetGatewayID: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
   additionalCells: []
-  gateway: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
-  noise: 0
 --- !u!65 &1370368474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1351,12 +1355,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584398343}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.46, y: -0.32, z: 0.79}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.2904591, z: -0, w: 0.9568874}
+  m_LocalPosition: {x: 0.22464456, y: 0.91293496, z: -2.4387574}
+  m_LocalScale: {x: 1.1837406, y: 1, z: 1.0745866}
   m_Children: []
-  m_Father: {fileID: 2110348706}
-  m_RootOrder: 6
+  m_Father: {fileID: 1370368472}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1717887905
 GameObject:
@@ -1828,7 +1832,6 @@ Transform:
   - {fileID: 520245319}
   - {fileID: 114643438}
   - {fileID: 942222665}
-  - {fileID: 1584398344}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

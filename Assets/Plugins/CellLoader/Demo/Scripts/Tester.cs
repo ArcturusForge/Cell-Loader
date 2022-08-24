@@ -14,26 +14,26 @@ public class Tester : MonoBehaviour
     {
         // Delay works in milliseconds.
         // This signifies the minimum load time any cell load will take.
-        MapLoader.ArtificialLoadDelay = 500;
-        MapLoader.OnLoadingEnd += OnLoaded;
+        CellLoader.ArtificialLoadDelay = 500;
+        CellLoader.OnLoadingEnd += OnLoaded;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            MapLoader.LoadCell(addScene1);
+            CellLoader.LoadCell(addScene1);
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            MapLoader.LoadCell(addScene2);
+            CellLoader.LoadCell(addScene2);
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            MapLoader.LoadCell(addScene3);
+            CellLoader.LoadCell(addScene3);
     }
 
     public void StartDemo()
     {
         Debug.Log("Starting Demo...");
-        MapLoader.LoadCell(addScene1);
+        CellLoader.LoadCell(addScene1);
     }
 
     private void OnLoaded()

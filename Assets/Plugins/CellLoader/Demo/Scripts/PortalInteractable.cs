@@ -2,22 +2,20 @@ using Arcturus.MapLoader;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalInteractable : MonoBehaviour, IPlayerInteract
+public class PortalInteractable : TransitionController, IPlayerInteract
 {
     [Header("Map Loading Data")]
-    public Cell_ID cell;
     public List<Cell_ID> additionalCells = new List<Cell_ID>();
-    public Gateway_ID gateway;
-    public LoadNoise noise = LoadNoise.Loud;
 
-    public void Awake()
+    public override void Awake()
     {
-        MapLoader.OnLoadedCellsChanged += ToggleState;
+        base.Awake();
+        CellLoader.OnLoadedCellsChanged += ToggleState;
     }
 
     private void OnDestroy()
     {
-        MapLoader.OnLoadedCellsChanged -= ToggleState;
+        CellLoader.OnLoadedCellsChanged -= ToggleState;
     }
 
     private void ToggleState(List<Cell_ID> activeCells)
@@ -27,7 +25,7 @@ public class PortalInteractable : MonoBehaviour, IPlayerInteract
         // Otherwise enable the portal.
         foreach (Cell_ID activeCell in activeCells)
         {
-            if (activeCell == cell)
+            if (activeCell == targetCellID)
             {
                 gameObject.SetActive(false);
                 return;
@@ -39,10 +37,10 @@ public class PortalInteractable : MonoBehaviour, IPlayerInteract
 
     public void PingCanInteract()
     {
-        if (noise == LoadNoise.Loud)
+        if (loadNoise == LoadNoise.Loud)
             PlayerCont.Player.ToggleInteractUI(true);
         else // Just for demo purposes.
-            MapLoader.LoadMultipleCells(cell, additionalCells, noise);
+            CellLoader.LoadMultipleCells(targetCellID, additionalCells, loadNoise);
     }
 
     public void PingEndInteract()
@@ -52,8 +50,8 @@ public class PortalInteractable : MonoBehaviour, IPlayerInteract
 
     public bool PlayerInteract(GameObject playerObject, out object data)
     {
-        data = new List<object> { noise, gateway };
-        MapLoader.LoadMultipleCells(cell, additionalCells, noise);
+        data = new List<object> { loadNoise, targetGatewayID };
+        CellLoader.LoadMultipleCells(targetCellID, additionalCells, loadNoise);
         return true;
     }
 }

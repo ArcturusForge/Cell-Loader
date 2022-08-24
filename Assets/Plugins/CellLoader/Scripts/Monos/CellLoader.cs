@@ -12,9 +12,9 @@ namespace Arcturus.MapLoader.Internal
 
 namespace Arcturus.MapLoader
 {
-    public class MapLoader : MonoBehaviour
+    public class CellLoader : MonoBehaviour
     {
-        private static MapLoader I;
+        private static CellLoader I;
 
         [Header("Setup Data")]
         public CellDatabase cellDatabase;

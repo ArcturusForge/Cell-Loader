@@ -275,10 +275,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212b410b03fd65448260acdb2226dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+  loadNoise: 1
+  myGatewayID: {fileID: 0}
+  incomingTeleportPoint: {fileID: 0}
+  targetCellID: {fileID: 11400000, guid: 97a15001c41034347bc41a8d2f04ad6a, type: 2}
+  targetGatewayID: {fileID: 0}
   additionalCells: []
-  gateway: {fileID: 0}
-  noise: 1
 --- !u!1 &172017267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1665,9 +1667,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backupSpawn: {fileID: 2050149663}
-  gateways:
-  - id: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
-    spawnPoint: {fileID: 500192126}
 --- !u!1 &1621993820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 69504052377212730, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
       propertyPath: m_Name
-      value: Portal
+      value: Portal (Example)
       objectReference: {fileID: 0}
     - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
       propertyPath: cell
@@ -2072,6 +2071,22 @@ PrefabInstance:
       propertyPath: gateway
       value: 
       objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: myGatewayID
+      value: 
+      objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: targetCellID
+      value: 
+      objectReference: {fileID: 11400000, guid: d1c4696a427a73742bcbbf61eae2df1f, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: targetGatewayID
+      value: 
+      objectReference: {fileID: 11400000, guid: 55be6e253ac88c243935a35d1ceda3e8, type: 2}
+    - target: {fileID: 596954082354287282, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
+      propertyPath: incomingTeleportPoint
+      value: 
+      objectReference: {fileID: 500192126}
     - target: {fileID: 7839218103958269952, guid: 6972030a56f54df4c9123ec99927a6a9, type: 3}
       propertyPath: m_IsActive
       value: 1

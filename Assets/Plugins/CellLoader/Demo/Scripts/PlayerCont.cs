@@ -25,12 +25,12 @@ public class PlayerCont : MonoBehaviour
         else if (I != this) Destroy(gameObject);
         #endregion
 
-        MapLoader.OnCellLoaded += OnCellLoaded;
+        CellLoader.OnCellLoaded += OnCellLoaded;
     }
 
     private void OnDisable()
     {
-        MapLoader.OnCellLoaded -= OnCellLoaded;
+        CellLoader.OnCellLoaded -= OnCellLoaded;
     }
 
     private void Update()
