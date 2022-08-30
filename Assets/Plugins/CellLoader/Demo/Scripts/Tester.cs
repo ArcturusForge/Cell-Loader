@@ -28,6 +28,9 @@ public class Tester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             CellLoader.LoadCell(addScene3);
+
+        if (Input.GetKeyDown(KeyCode.U))
+            CellLoader.UnloadAll();
     }
 
     public void StartDemo()

@@ -205,6 +205,17 @@ namespace Arcturus.MapLoader
         }
 
         /// <summary>
+        /// Unloads all scenes loaded by this system.
+        /// </summary>
+        public static void UnloadAll()
+        {
+            foreach (var cell in I.loadedCells)
+                SceneManager.UnloadSceneAsync(cell.scene.ScenePath);
+
+            I.loadedCells.Clear();
+        }
+
+        /// <summary>
         /// Attempts to load a cell.<br/>
         /// LoadNoise determines load cell events (Loud = Use events || Silent = Don't use events).
         /// </summary>
